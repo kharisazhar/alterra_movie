@@ -14,6 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  /// _selectedIndex : private variable menggunakan underscore _
   int _selectedIndex = 0;
 
   final List<Widget> _movieItemPages = [
@@ -36,7 +37,7 @@ class _MainPageState extends State<MainPage> {
           currentIndex: _selectedIndex,
           selectedItemColor: AltaColor.yellowWaxPepper,
           onTap: (index) {
-            debugPrint("ONTAP : ${index}");
+            debugPrint("ONTAP : $index");
             setState(() {
               _selectedIndex = index;
             });
