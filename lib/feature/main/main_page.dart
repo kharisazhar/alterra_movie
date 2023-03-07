@@ -16,29 +16,31 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  final List<Widget> _widgetOptions = [
+  final List<Widget> _movieItemPages = [
     const HomePage(),
     const TicketPage(),
     const FavoritePage(),
     const ProfilePage(),
   ];
 
-  void _itemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        /// Supaya halaman berubah
+        child: _movieItemPages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
+
+          /// Supaya Item Menu ter-implementasi
           currentIndex: _selectedIndex,
           selectedItemColor: AltaColor.yellowWaxPepper,
-          onTap: _itemTapped,
+          onTap: (index) {
+            debugPrint("ONTAP : ${index}");
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               label: 'Movie',
