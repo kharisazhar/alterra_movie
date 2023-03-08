@@ -1,5 +1,7 @@
 import 'package:alterra_movie/feature/homepage/home_page.dart';
+import 'package:alterra_movie/theme/icon/alta_icon_movie_icons.dart';
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 import '../../theme/alta_color.dart';
 import '../favorite/favorite_page.dart';
@@ -27,40 +29,44 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AltaColor.primaryBlack,
-      body: SafeArea(
-        /// Supaya halaman berubah
-        child: _movieItemPages.elementAt(_selectedIndex),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: AltaColor.primaryBlack,
+        body: SafeArea(
+          /// Supaya halaman berubah
+          child: _movieItemPages.elementAt(_selectedIndex),
+        ),
 
-          /// Supaya Item Menu ter-implementasi
-          currentIndex: _selectedIndex,
-          selectedItemColor: AltaColor.orange,
-          onTap: (index) {
-            debugPrint("ONTAP : $index");
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              label: 'Movie',
-              icon: Icon(Icons.movie),
-            ),
-            BottomNavigationBarItem(
-              label: 'Ticket',
-              icon: Icon(Icons.airplane_ticket_rounded),
-            ),
-            BottomNavigationBarItem(
-              label: 'Favorite',
-              icon: Icon(Icons.bookmark),
-            ),
-            BottomNavigationBarItem(
-              label: 'Profile',
-              icon: Icon(Icons.person),
-            ),
-          ]),
-    );
+        /// Supaya Item Menu ter-implementasi
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 22.0, vertical: 12.0),
+          child: GNav(
+            gap: 12,
+            tabBackgroundColor: AltaColor.orange,
+            padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+            selectedIndex: _selectedIndex,
+            onTabChange: (index) {
+              debugPrint("ONTAP : $index");
+              setState(() {
+                _selectedIndex = index;
+              });
+            },
+            tabs: const [
+              // GButton(
+              //     leading: SizedBox(
+              //       width: 24,
+              //       height: 24,
+              //       child: Image.asset('assets/icons/icon_movie.png'),
+              //     ),
+              //     text: 'Movie',
+              //     icon: Icons.abc_rounded),
+              GButton(
+                icon: AltaIconMovie.icon_movie,
+                text: 'Movie',
+              ),
+              GButton(icon: Icons.airplane_ticket_rounded, text: 'Ticket'),
+              GButton(icon: Icons.bookmark, text: 'Favorite'),
+              GButton(icon: Icons.person, text: 'Profile')
+            ],
+          ),
+        ));
   }
 }
