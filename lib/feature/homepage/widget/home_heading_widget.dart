@@ -1,3 +1,4 @@
+import 'package:alterra_movie/theme/alta_color.dart';
 import 'package:flutter/material.dart';
 
 class HomeHeadingWidget extends StatelessWidget {
@@ -11,10 +12,17 @@ class HomeHeadingWidget extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Text('Joko 👋'),
-            SizedBox(height: 4.0),
-            Text("Let's relax and watch a movie!"),
+          children: [
+            Text('Welcome Joko 👋',
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: AltaColor.grey)),
+            const SizedBox(height: 4.0),
+            Text(
+              "Let's relax and watch a movie!",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ],
         ),
         const CircleAvatar(

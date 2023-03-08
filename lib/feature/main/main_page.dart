@@ -27,6 +27,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AltaColor.primaryBlack,
       body: SafeArea(
         /// Supaya halaman berubah
         child: _movieItemPages.elementAt(_selectedIndex),

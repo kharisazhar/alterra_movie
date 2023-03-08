@@ -6,7 +6,8 @@ class ContentHeaderWidget extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
 
-  const ContentHeaderWidget({Key? key, required this.title, required this.onPressed})
+  const ContentHeaderWidget(
+      {Key? key, required this.title, required this.onPressed})
       : super(key: key);
 
   @override
@@ -14,14 +15,18 @@ class ContentHeaderWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title),
+        Text(title,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(color: AltaColor.white)),
         TextButton(
             style: ButtonStyle(
                     padding: MaterialStateProperty.all(EdgeInsets.zero),
                     tapTargetSize: MaterialTapTargetSize.shrinkWrap)
                 .copyWith(
                     foregroundColor:
-                        const MaterialStatePropertyAll(AltaColor.orange)),
+                        MaterialStatePropertyAll(AltaColor.orange.shade600)),
             onPressed: onPressed,
             child: const Text('View all'))
       ],

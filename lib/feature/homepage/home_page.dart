@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () {},
                 ),
 
-                const SizedBox(height: 8.0),
+                const SizedBox(height: 18.0),
 
                 /// Categories
                 const MovieCategoriesWidget()
@@ -53,6 +53,8 @@ class HomePage extends StatelessWidget {
               title: 'Latest Movie',
               onPressed: () {},
             ),
+
+            const SizedBox(height: 18.0),
 
             /// Movie Poster
             SizedBox(
@@ -69,13 +71,13 @@ class HomePage extends StatelessWidget {
                   }),
             ),
 
-            const SizedBox(height: 22.0),
-
             /// Favorite Movie
             ContentHeaderWidget(
               title: 'Favorite Movie',
               onPressed: () {},
             ),
+
+            const SizedBox(height: 18.0),
 
             SizedBox(
               height: 320,
