@@ -35,7 +35,7 @@ class _MainPageState extends State<MainPage> {
 
           /// Supaya Item Menu ter-implementasi
           currentIndex: _selectedIndex,
-          selectedItemColor: AltaColor.yellowWaxPepper,
+          selectedItemColor: AltaColor.orange,
           onTap: (index) {
             debugPrint("ONTAP : $index");
             setState(() {

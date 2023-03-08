@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class AltaColor {
 
+  /// Color Palette Alta Movie
   static const MaterialColor orange = MaterialColor(
       _orangePrimaryValue,
       <int, Color>{

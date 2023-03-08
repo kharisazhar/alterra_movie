@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.dark,
       darkTheme: ThemeData.dark(),
       theme: ThemeData(
-        primaryColor: AltaColor.yellowWaxPepper,
-        primaryColorDark: AltaColor.yellowWaxPepper,
+        primaryColor: Colors.grey.shade100,
+        primaryColorDark: AltaColor.orange,
       ),
       home: const MainPage(),
     );
