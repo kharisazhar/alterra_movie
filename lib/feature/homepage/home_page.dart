@@ -1,9 +1,10 @@
+import 'package:alterra_movie/feature/detail/detail_movie_page.dart';
 import 'package:alterra_movie/feature/homepage/widget/movie_poster_item_widget.dart';
 import 'package:flutter/material.dart';
 
 import 'widget/content_header_widget.dart';
 import 'widget/home_heading_widget.dart';
-import 'widget/movie_categories_widget.dart';
+import 'widget/movie_categories/movie_categories_widget.dart';
 import 'widget/search_movie_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -66,7 +67,22 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 22.0),
-                      child: MoviePostItemWidget(posterImageUrl: posterImage),
+                      child: MoviePostItemWidget(
+                        posterImageUrl: posterImage,
+                        onTap: () =>
+
+                            /// PushReplacement
+                            // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            //     builder: (_) => DetailMoviePage(
+                            //           imagePoster: posterImage,
+                            //         ))),
+
+                            /// Push
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (_) => DetailMoviePage(
+                                      imagePoster: posterImage,
+                                    ))),
+                      ),
                     );
                   }),
             ),
