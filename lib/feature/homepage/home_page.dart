@@ -1,6 +1,7 @@
 import 'package:alterra_movie/feature/homepage/widget/movie_poster_item_widget.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
+import '../detail/detail_movie_page.dart';
 import 'widget/content_header_widget.dart';
 import 'widget/home_heading_widget.dart';
 import 'widget/movie_categories_widget.dart';
@@ -66,7 +67,13 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 22.0),
-                      child: MoviePostItemWidget(posterImageUrl: posterImage),
+                      child: MoviePostItemWidget(
+                        posterImageUrl: posterImage,
+                        onTap: () {
+                          Navigator.of(context).push(CupertinoPageRoute(
+                              builder: (_) => const DetailMoviePage()));
+                        },
+                      ),
                     );
                   }),
             ),
