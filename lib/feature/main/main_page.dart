@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   final List<Widget> _movieItemPages = [
-    const HomePage(),
+    HomePage(),
     const TicketPage(),
     const FavoritePage(),
     const ProfilePage(),

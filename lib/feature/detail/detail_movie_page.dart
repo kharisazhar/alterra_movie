@@ -1,16 +1,14 @@
 import 'package:alterra_movie/theme/alta_color.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/model/movie_model.dart';
 import '../homepage/widget/movie_categories/movie_category_item.dart';
 
 class DetailMoviePage extends StatelessWidget {
-  final String imagePoster;
+  final MovieModel movie;
 
-  const DetailMoviePage({Key? key, required this.imagePoster})
-      : super(key: key);
-
-  final String movieDescription =
-      "Thor: Love and Thunder is a 2022 American superhero film based on Marvel Comics featuring the character Thor. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the sequel to Thor: Ragnarok (2017) and the 29th film in the Marvel Cinematic Universe (MCU). The film was directed by Taika Waititi, who co-wrote the screenplay with Jennifer Kaytin Robinson, and stars Chris Hemsworth as Thor alongside Christian Bale, Tessa Thompson, Jaimie Alexander, Waititi, Russell Crowe, and Natalie Portman. In the film, Thor attempts to find inner peace, but must return to action and recruit Valkyrie (Thompson), Korg (Waititi), and Jane Foster (Portman)—who is now the Mighty Thor—to stop Gorr the God Butcher (Bale) from eliminating all gods.";
+  const DetailMoviePage({Key? key, required this.movie}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -65,8 +63,8 @@ class DetailMoviePage extends StatelessWidget {
                 flexibleSpace: FlexibleSpaceBar(
                   /// TODO : Video Player
                   ///
-                  background: Image.network(
-                    imagePoster,
+                  background: CachedNetworkImage(
+                    imageUrl: movie.moviePoster,
                     fit: BoxFit.fill,
                     width: MediaQuery.of(context).size.width,
                   ),
@@ -101,7 +99,7 @@ class DetailMoviePage extends StatelessWidget {
                       color: AltaColor.yellow,
                     ),
                     Text(
-                      '4.8',
+                      '${movie.voteAverage}',
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -122,7 +120,7 @@ class DetailMoviePage extends StatelessWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                Text('Thor: Love & Thunder',
+                Text(movie.movieTitle,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -145,7 +143,7 @@ class DetailMoviePage extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 2,
-                  child: Text(movieDescription,
+                  child: Text(movie.movieOverview,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AltaColor.white.withOpacity(0.6),
                           height: 1.5)),

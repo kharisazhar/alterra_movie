@@ -1,3 +1,4 @@
+import 'package:alterra_movie/data/source/movie_now_playing_data.dart';
 import 'package:alterra_movie/feature/detail/detail_movie_page.dart';
 import 'package:alterra_movie/feature/homepage/widget/movie_poster_item_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +9,9 @@ import 'widget/movie_categories/movie_categories_widget.dart';
 import 'widget/search_movie_widget.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
-  final String posterImage =
-      "https://images.unsplash.com/photo-1596727147705-61a532a659bd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80";
+  final dataMovie = MovieNowPlayingData().movieNowPlayingData;
 
   @override
   Widget build(BuildContext context) {
@@ -61,28 +61,31 @@ class HomePage extends StatelessWidget {
             SizedBox(
               height: 320,
               child: ListView.builder(
-                  itemCount: 10,
+                  itemCount: dataMovie.length,
                   scrollDirection: Axis.horizontal,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(right: 22.0),
                       child: MoviePostItemWidget(
-                        posterImageUrl: posterImage,
-                        onTap: () =>
+                          movieTitle: dataMovie[index].movieTitle,
+                          posterImageUrl: dataMovie[index].moviePoster,
+                          onTap: () {
+                            /// Push
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => DetailMoviePage(
+                                  movie: dataMovie[index],
+                                ),
+                              ),
+                            );
 
                             /// PushReplacement
                             // Navigator.of(context).pushReplacement(MaterialPageRoute(
                             //     builder: (_) => DetailMoviePage(
                             //           imagePoster: posterImage,
                             //         ))),
-
-                            /// Push
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (_) => DetailMoviePage(
-                                      imagePoster: posterImage,
-                                    ))),
-                      ),
+                          }),
                     );
                   }),
             ),
@@ -95,19 +98,22 @@ class HomePage extends StatelessWidget {
 
             const SizedBox(height: 18.0),
 
-            SizedBox(
-              height: 320,
-              child: ListView.builder(
-                  itemCount: 10,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 22.0),
-                      child: MoviePostItemWidget(posterImageUrl: posterImage),
-                    );
-                  }),
-            ),
+            // SizedBox(
+            //   height: 320,
+            //   child: ListView.builder(
+            //       itemCount: 10,
+            //       scrollDirection: Axis.horizontal,
+            //       shrinkWrap: true,
+            //       itemBuilder: (context, index) {
+            //         return Padding(
+            //           padding: const EdgeInsets.only(right: 22.0),
+            //           child: MoviePostItemWidget(
+            //             movieTitle: '',
+            //             posterImageUrl: posterImage,
+            //           ),
+            //         );
+            //       }),
+            // ),
           ],
         ),
       ),
