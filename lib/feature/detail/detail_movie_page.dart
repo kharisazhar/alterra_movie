@@ -1,3 +1,4 @@
+import 'package:alterra_movie/core/database/database_helper.dart';
 import 'package:alterra_movie/theme/alta_color.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -46,23 +47,26 @@ class DetailMoviePage extends StatelessWidget {
                     },
                     icon: const Icon(Icons.close)),
                 actions: [
-                  Padding(
+                  IconButton(
                     padding: const EdgeInsets.symmetric(
                         vertical: 32, horizontal: 22),
-                    child: IconButton(
-                      onPressed: () {
-                        debugPrint("HIT ME");
-                      },
-                      icon: const Icon(Icons.bookmark),
-                    ),
-                  )
+                    onPressed: () {
+                      DatabaseHelper().insertMovie(
+                        MovieModel(
+                            movieTitle: movie.movieTitle,
+                            moviePoster: movie.moviePoster,
+                            voteAverage: movie.voteAverage,
+                            movieOverview: movie.movieOverview),
+                      );
+                    },
+                    icon: const Icon(Icons.bookmark),
+                  ),
                 ],
                 floating: true,
                 expandedHeight: MediaQuery.of(context).size.height / 1.6,
                 forceElevated: innerBoxIsScrolled,
                 flexibleSpace: FlexibleSpaceBar(
                   /// TODO : Video Player
-                  ///
                   background: CachedNetworkImage(
                     imageUrl: movie.moviePoster,
                     fit: BoxFit.fill,
