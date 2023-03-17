@@ -26,10 +26,19 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getMovieListDB();
+
   }
 
   void getMovieListDB() async {
     favoriteListMovie = await DatabaseHelper().getMovieList();
+    /// TODO
+    // await DatabaseHelper().getMovie(1).then((value) {
+    //   value.forEach((element) {
+    //     debugPrint("element.movieTitle ${element.movieTitle}");
+    //   });
+    // });
+
+    setState(() {});
   }
 
   @override
@@ -134,6 +143,21 @@ class _HomePageState extends State<HomePage> {
                       child: MoviePostItemWidget(
                         movieTitle: favoriteListMovie[index].movieTitle,
                         posterImageUrl: favoriteListMovie[index].moviePoster,
+                        onTap: () {
+                          /// Push
+                          Navigator.of(context)
+                              .push(
+                            MaterialPageRoute(
+                              builder: (_) => DetailMoviePage(
+                                movie: dataMovie[index],
+                              ),
+                            ),
+                          )
+                              .then((value) {
+                            getMovieListDB();
+                            setState(() {});
+                          });
+                        },
                       ),
                     );
                   }),

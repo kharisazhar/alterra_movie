@@ -6,10 +6,33 @@ import 'package:flutter/material.dart';
 import '../../data/model/movie_model.dart';
 import '../homepage/widget/movie_categories/movie_category_item.dart';
 
-class DetailMoviePage extends StatelessWidget {
+class DetailMoviePage extends StatefulWidget {
   final MovieModel movie;
 
   const DetailMoviePage({Key? key, required this.movie}) : super(key: key);
+
+  @override
+  State<DetailMoviePage> createState() => _DetailMoviePageState();
+}
+
+class _DetailMoviePageState extends State<DetailMoviePage> {
+  int localMovieId = 0;
+  bool isFavorite = false;
+
+  @override
+  void initState() {
+    super.initState();
+    getMovie();
+  }
+
+  void getMovie() async {
+    var result = await DatabaseHelper().getMovie(widget.movie.id);
+    if (result.isNotEmpty) {
+      localMovieId = result.first.id;
+    }
+    setState(() {});
+    debugPrint("Local =$localMovieId | source =${widget.movie.id}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,15 +74,32 @@ class DetailMoviePage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         vertical: 32, horizontal: 22),
                     onPressed: () {
-                      DatabaseHelper().insertMovie(
-                        MovieModel(
-                            movieTitle: movie.movieTitle,
-                            moviePoster: movie.moviePoster,
-                            voteAverage: movie.voteAverage,
-                            movieOverview: movie.movieOverview),
-                      );
+                      /// Local
+                      if (isFavorite) {
+                        isFavorite = false;
+                      } else {
+                        isFavorite = true;
+                      }
+
+                      /// Get Current Status Favorite
+                      if (localMovieId == widget.movie.id) {
+                        DatabaseHelper().deleteMovie(widget.movie.id);
+                      } else {
+                        DatabaseHelper().insertMovie(
+                          MovieModel(
+                              id: widget.movie.id,
+                              movieTitle: widget.movie.movieTitle,
+                              moviePoster: widget.movie.moviePoster,
+                              voteAverage: widget.movie.voteAverage,
+                              movieOverview: widget.movie.movieOverview),
+                        );
+                      }
+
+                      setState(() {});
                     },
-                    icon: const Icon(Icons.bookmark),
+                    icon: Icon(localMovieId == widget.movie.id || isFavorite
+                        ? Icons.bookmark
+                        : Icons.bookmark_outline),
                   ),
                 ],
                 floating: true,
@@ -68,7 +108,7 @@ class DetailMoviePage extends StatelessWidget {
                 flexibleSpace: FlexibleSpaceBar(
                   /// TODO : Video Player
                   background: CachedNetworkImage(
-                    imageUrl: movie.moviePoster,
+                    imageUrl: widget.movie.moviePoster,
                     fit: BoxFit.fill,
                     width: MediaQuery.of(context).size.width,
                   ),
@@ -103,7 +143,7 @@ class DetailMoviePage extends StatelessWidget {
                       color: AltaColor.yellow,
                     ),
                     Text(
-                      '${movie.voteAverage}',
+                      '${widget.movie.voteAverage}',
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -124,7 +164,7 @@ class DetailMoviePage extends StatelessWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                Text(movie.movieTitle,
+                Text(widget.movie.movieTitle,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -147,7 +187,7 @@ class DetailMoviePage extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 2,
-                  child: Text(movie.movieOverview,
+                  child: Text(widget.movie.movieOverview,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AltaColor.white.withOpacity(0.6),
                           height: 1.5)),

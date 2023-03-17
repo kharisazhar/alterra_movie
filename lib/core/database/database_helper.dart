@@ -30,6 +30,7 @@ class DatabaseHelper {
       /// CREATE TABLE
       await db.execute(
         '''CREATE TABLE $tableName( 
+              id INTEGER PRIMARY KEY,
               movieTitle TEXT NOT NULL,
               moviePoster TEXT NOT NULL,
               voteAverage DOUBLE NOT NULL,
@@ -42,15 +43,51 @@ class DatabaseHelper {
 
   Future<void> insertMovie(MovieModel movie) async {
     final db = await database;
+
     /// SQL :
     /// INSERT INTO T_DETAIL_MOVIE (MOVIE_ID, MOVIE_TITLE, MOVIE_POSTER, MOVIE_VOTE_AVERAGE, MOVIE_OVERVIEW)
     /// VALUES (movie.id, movie.title, movie.poster, movie.vote, movie.overview)
     await db.insert(tableName, movie.toJson());
   }
 
+  Future<void> deleteMovie(int movieId) async {
+    final db = await database;
+
+    /// DELETE FROM T_DETAIL_MOVIE WHERE id = movieId;
+    await db.delete(tableName, where: 'id = ?', whereArgs: [movieId]);
+  }
+
   Future<List<MovieModel>> getMovieList() async {
     final db = await database;
+
+    /// SELECT * FROM T_DETAIL_MOVIE;
     List<Map<String, dynamic>> result = await db.query(tableName);
+    return result.map((e) => MovieModel.fromJson(e)).toList();
+  }
+
+  Future<List<MovieModel>> getMovie(int movieId) async {
+    /// SELECT * FROM T_DETAIL_MOVIE where id = movieId;
+    final db = await database;
+    List<Map<String, dynamic>> result =
+        await db.query(tableName, where: 'id = ?', whereArgs: [movieId]);
+    return result.map((e) => MovieModel.fromJson(e)).toList();
+  }
+
+  /// EXAMPLE 1:
+  Future<List<MovieModel>> getMovieId(int movieId) async {
+    /// SELECT id FROM T_DETAIL_MOVIE where id = movieId;
+    final db = await database;
+    List<Map<String, dynamic>> result = await db.query(tableName,
+        where: 'id = ?', whereArgs: [movieId], columns: ["id"]);
+    return result.map((e) => MovieModel.fromJson(e)).toList();
+  }
+
+  /// EXAMPLE 2:
+  Future<List<MovieModel>> getMovieTitle(int movieId) async {
+    /// SELECT movieTitle FROM T_DETAIL_MOVIE where id = movieId;
+    final db = await database;
+    List<Map<String, dynamic>> result = await db.query(tableName,
+        where: 'id = ?', whereArgs: [movieId], columns: ["movieTitle"]);
     return result.map((e) => MovieModel.fromJson(e)).toList();
   }
 }
