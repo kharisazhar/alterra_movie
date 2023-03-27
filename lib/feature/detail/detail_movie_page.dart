@@ -64,7 +64,7 @@ class DetailMoviePage extends StatelessWidget {
                   /// TODO : Video Player
                   ///
                   background: CachedNetworkImage(
-                    imageUrl: movie.moviePoster,
+                    imageUrl: movie.results[0].posterPath,
                     fit: BoxFit.fill,
                     width: MediaQuery.of(context).size.width,
                   ),
@@ -99,7 +99,7 @@ class DetailMoviePage extends StatelessWidget {
                       color: AltaColor.yellow,
                     ),
                     Text(
-                      '${movie.voteAverage}',
+                      '${movie.results[0].voteAverage}',
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -120,7 +120,7 @@ class DetailMoviePage extends StatelessWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                Text(movie.movieTitle,
+                Text(movie.results[0].title,
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -143,7 +143,7 @@ class DetailMoviePage extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 2,
-                  child: Text(movie.movieOverview,
+                  child: Text(movie.results[0].overview,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AltaColor.white.withOpacity(0.6),
                           height: 1.5)),

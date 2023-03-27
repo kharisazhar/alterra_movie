@@ -1,17 +1,32 @@
 import 'package:alterra_movie/data/source/movie_now_playing_data.dart';
-import 'package:alterra_movie/feature/detail/detail_movie_page.dart';
 import 'package:alterra_movie/feature/homepage/widget/movie_poster_item_widget.dart';
 import 'package:flutter/material.dart';
 
+import '../../data/model/movie_model.dart';
 import 'widget/content_header_widget.dart';
 import 'widget/home_heading_widget.dart';
 import 'widget/movie_categories/movie_categories_widget.dart';
 import 'widget/search_movie_widget.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
 
-  final dataMovie = MovieNowPlayingData().movieNowPlayingData;
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<MovieResult> dataMovie = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initData();
+  }
+
+  void initData() async {
+    dataMovie = await MovieNowPlayingData().getMovieJson();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,17 +83,17 @@ class HomePage extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(right: 22.0),
                       child: MoviePostItemWidget(
-                          movieTitle: dataMovie[index].movieTitle,
-                          posterImageUrl: dataMovie[index].moviePoster,
+                          movieTitle: dataMovie[index].title,
+                          posterImageUrl: dataMovie[index].posterPath,
                           onTap: () {
                             /// Push
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (_) => DetailMoviePage(
-                                  movie: dataMovie[index],
-                                ),
-                              ),
-                            );
+                            // Navigator.of(context).push(
+                            //   MaterialPageRoute(
+                            //     builder: (_) => DetailMoviePage(
+                            //       movie: MovieModel(),
+                            //     ),
+                            //   ),
+                            // );
 
                             /// PushReplacement
                             // Navigator.of(context).pushReplacement(MaterialPageRoute(

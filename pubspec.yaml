@@ -68,6 +68,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/icons/icon_movie.png
+    - assets/json/movie_list.json
   fonts:
     - family: AltaIconMovie
       fonts:

@@ -23,7 +23,7 @@ class MoviePostItemWidget extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(14.0),
             child: CachedNetworkImage(
-              imageUrl: posterImageUrl,
+              imageUrl: 'https://image.tmdb.org/t/p/w185$posterImageUrl',
               fit: BoxFit.cover,
               width: 180,
             ),
