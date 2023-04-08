@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../theme/alta_color.dart';
+import '../../../../theme/alta_color.dart';
 
 class ContentHeaderWidget extends StatelessWidget {
   final String title;
