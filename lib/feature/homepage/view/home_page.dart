@@ -1,32 +1,15 @@
-import 'package:alterra_movie/data/source/movie_now_playing_data.dart';
-import 'package:alterra_movie/feature/homepage/widget/movie_poster_item_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../data/model/movie_model.dart';
+import '../view_model/movie_list/movie_list_bloc.dart';
 import 'widget/content_header_widget.dart';
 import 'widget/home_heading_widget.dart';
 import 'widget/movie_categories/movie_categories_widget.dart';
+import 'widget/movie_poster_item_widget.dart';
 import 'widget/search_movie_widget.dart';
 
-class HomePage extends StatefulWidget {
-  HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  List<MovieResult> dataMovie = [];
-
-  @override
-  void initState() {
-    super.initState();
-    initData();
-  }
-
-  void initData() async {
-    dataMovie = await MovieNowPlayingData().getMovieJson();
-  }
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -73,37 +56,47 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 18.0),
 
             /// Movie Poster
-            SizedBox(
-              height: 320,
-              child: ListView.builder(
-                  itemCount: dataMovie.length,
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(right: 22.0),
-                      child: MoviePostItemWidget(
-                          movieTitle: dataMovie[index].title,
-                          posterImageUrl: dataMovie[index].posterPath,
-                          onTap: () {
-                            /// Push
-                            // Navigator.of(context).push(
-                            //   MaterialPageRoute(
-                            //     builder: (_) => DetailMoviePage(
-                            //       movie: MovieModel(),
-                            //     ),
-                            //   ),
-                            // );
-
-                            /// PushReplacement
-                            // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            //     builder: (_) => DetailMoviePage(
-                            //           imagePoster: posterImage,
-                            //         ))),
-                          }),
-                    );
-                  }),
-            ),
+            BlocBuilder<MovieListBloc, MovieListState>(
+                builder: (context, state) {
+              if (state is MovieListInitial) {
+                return const SizedBox.shrink();
+              } else if (state is MovieListLoading) {
+                return const Center(child: CircularProgressIndicator());
+              } else if (state is MovieListLoaded) {
+                return SizedBox(
+                  height: 320,
+                  child: ListView.builder(
+                      itemCount: state.movieList?.length ?? 0,
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 22.0),
+                          child: MoviePostItemWidget(
+                              movieTitle: state.movieList?[index].title ?? '',
+                              posterImageUrl:
+                                  state.movieList?[index].posterPath ?? '',
+                              onTap: () {
+                                /// Push
+                                // Navigator.of(context).push(
+                                //   MaterialPageRoute(
+                                //     builder: (_) => DetailMoviePage(
+                                //       movie: MovieModel(),
+                                //     ),
+                                //   ),
+                                // );
+                              }),
+                        );
+                      }),
+                );
+              } else if (state is MovieListError) {
+                return const Center(
+                  child: Text('Oops something went wrong...'),
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
+            }),
 
             /// Favorite Movie
             ContentHeaderWidget(

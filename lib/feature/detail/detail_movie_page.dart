@@ -1,12 +1,12 @@
+import 'package:alterra_movie/feature/homepage/model/movie/Movie_list_model.dart';
 import 'package:alterra_movie/theme/alta_color.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-import '../../data/model/movie_model.dart';
-import '../homepage/widget/movie_categories/movie_category_item.dart';
+import '../homepage/view/widget/movie_categories/movie_category_item.dart';
 
 class DetailMoviePage extends StatelessWidget {
-  final MovieModel movie;
+  final MovieListModel movie;
 
   const DetailMoviePage({Key? key, required this.movie}) : super(key: key);
 
@@ -64,7 +64,7 @@ class DetailMoviePage extends StatelessWidget {
                   /// TODO : Video Player
                   ///
                   background: CachedNetworkImage(
-                    imageUrl: movie.results[0].posterPath,
+                    imageUrl: movie.results?[0].posterPath ?? '',
                     fit: BoxFit.fill,
                     width: MediaQuery.of(context).size.width,
                   ),
@@ -99,7 +99,7 @@ class DetailMoviePage extends StatelessWidget {
                       color: AltaColor.yellow,
                     ),
                     Text(
-                      '${movie.results[0].voteAverage}',
+                      '${movie.results?[0].voteAverage}',
                       style: Theme.of(context)
                           .textTheme
                           .labelMedium
@@ -120,7 +120,7 @@ class DetailMoviePage extends StatelessWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                Text(movie.results[0].title,
+                Text(movie.results?[0].title ?? '',
                     style: Theme.of(context)
                         .textTheme
                         .titleLarge
@@ -143,7 +143,7 @@ class DetailMoviePage extends StatelessWidget {
                 ),
                 Flexible(
                   flex: 2,
-                  child: Text(movie.results[0].overview,
+                  child: Text(movie.results?[0].overview ?? '',
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                           color: AltaColor.white.withOpacity(0.6),
                           height: 1.5)),
