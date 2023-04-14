@@ -1,8 +1,8 @@
-import 'package:alterra_movie/feature/homepage/model/movie/Movie_list_model.dart';
-import 'package:alterra_movie/theme/alta_color.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/theme/alta_color.dart';
+import '../homepage/model/movie/Movie_list_model.dart';
 import '../homepage/view/widget/movie_categories/movie_category_item.dart';
 
 class DetailMoviePage extends StatelessWidget {

@@ -1,7 +1,7 @@
-import 'package:alterra_movie/theme/alta_color.dart';
 import 'package:flutter/material.dart';
 
 import 'feature/main/main_page.dart';
+import 'utils/theme/alta_color.dart';
 
 void main() {
   runApp(const MyApp());

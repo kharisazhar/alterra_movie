@@ -1,5 +1,6 @@
-import 'package:alterra_movie/theme/alta_color.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../utils/theme/alta_color.dart';
 
 class SearchMovieWidget extends StatelessWidget {
   const SearchMovieWidget({Key? key}) : super(key: key);

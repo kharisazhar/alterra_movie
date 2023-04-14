@@ -1,5 +1,7 @@
-import 'package:alterra_movie/theme/alta_color.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../../../utils/theme/alta_color.dart';
 
 class HomeHeadingWidget extends StatelessWidget {
   const HomeHeadingWidget({Key? key}) : super(key: key);

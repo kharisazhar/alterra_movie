@@ -2,8 +2,8 @@ import 'package:alterra_movie/feature/homepage/view/home_main.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
-import '../../theme/alta_color.dart';
-import '../../theme/icon/alta_icon_movie_icons.dart';
+import '../../utils/theme/alta_color.dart';
+import '../../utils/theme/icon/alta_icon_movie_icons.dart';
 import '../favorite/favorite_page.dart';
 import '../profile/profile_page.dart';
 import '../ticket/ticket_page.dart';
