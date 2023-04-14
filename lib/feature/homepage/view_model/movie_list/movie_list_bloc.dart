@@ -15,7 +15,7 @@ class MovieListBloc extends Bloc<MovieListEvent, MovieListState> {
     on<GetMovieList>(_onGetMovieList);
   }
 
-  final MovieListRepository _movieListRepository = MovieListRepository();
+  final MovieListRepositoryImpl _movieListRepository = MovieListRepositoryImpl();
 
   Future<void> _onGetMovieList(
       GetMovieList event, Emitter<MovieListState> emit) async {

@@ -7,7 +7,11 @@ import 'package:alterra_movie/feature/homepage/model/movie/movie_list_results.da
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class MovieListRepository {
+abstract class MovieListRepository {
+  Future<List<MovieListResults>?> getMovieFromAPI(String page);
+}
+
+class MovieListRepositoryImpl extends MovieListRepository {
   Future<String> _readJson(String name) async {
     return await rootBundle.loadString('assets/json/$name');
   }
@@ -22,6 +26,7 @@ class MovieListRepository {
     }
   }
 
+  @override
   Future<List<MovieListResults>?> getMovieFromAPI(String page) async {
     try {
       final response = await NetworkServices().get(
@@ -42,5 +47,3 @@ class MovieListRepository {
     }
   }
 }
-
-/// Future<> getMovieFromDB() {}}
