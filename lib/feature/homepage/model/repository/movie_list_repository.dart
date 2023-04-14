@@ -1,11 +1,12 @@
 import 'dart:convert';
 
-import 'package:alterra_movie/core/network/api_endpoint.dart';
-import 'package:alterra_movie/core/network/network_services.dart';
-import 'package:alterra_movie/feature/homepage/model/movie/Movie_list_model.dart';
-import 'package:alterra_movie/feature/homepage/model/movie/movie_list_results.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+import '../../../../core/network/api_endpoint.dart';
+import '../../../../core/network/network_services.dart';
+import '../movie/Movie_list_model.dart';
+import '../movie/movie_list_results.dart';
 
 abstract class MovieListRepository {
   Future<List<MovieListResults>?> getMovieFromAPI(String page);
